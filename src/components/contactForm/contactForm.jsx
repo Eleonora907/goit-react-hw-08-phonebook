@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Form, Input, Label } from './contactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
 import { selectContacts } from 'redux/selectors';
 import { addContactThunk } from 'redux/operations';
+import { Button, Form, Input, Label } from './contactForm.styled';
+
 
 export const ContactForm = () => {
   const [name, setName] = React.useState('');
@@ -35,6 +36,7 @@ export const ContactForm = () => {
     setNumber('');
   };
   return (
+    // <h2>Phonebook</h2>
     <Form onSubmit={handleSubmit}>
       <Label>
         Name
