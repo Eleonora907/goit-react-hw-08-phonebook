@@ -1,14 +1,19 @@
-import { NavBar } from 'components/navBar/navBar'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Loader } from 'components/loader/loader';
+import { Navigation } from 'components/navigation/navigation';
+import React, { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
 export const Layout = () => {
   return (
-    <div>
-        <NavBar/>
-        <div>
-            <Outlet/>
-        </div>
-    </div>
-  )
-}
+    <>
+      <div>
+        <Navigation />
+      </div>
+      <div>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </>
+  );
+};

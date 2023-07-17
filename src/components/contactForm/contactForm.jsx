@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
 import { selectContacts } from 'redux/selectors';
@@ -7,17 +7,24 @@ import { Button, Form, Input, Label } from './contactForm.styled';
 
 
 export const ContactForm = () => {
-  const [name, setName] = React.useState('');
-  const [number, setNumber] = React.useState('');
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        return;
     }
   };
 
@@ -36,7 +43,6 @@ export const ContactForm = () => {
     setNumber('');
   };
   return (
-    // <h2>Phonebook</h2>
     <Form onSubmit={handleSubmit}>
       <Label>
         Name

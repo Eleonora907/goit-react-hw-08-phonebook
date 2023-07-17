@@ -3,7 +3,8 @@ import {
   fetchAddContact,
   fetchContacts,
   fetchDeleteContact,
-} from 'services/mockApi';
+  fetchEditContact,
+} from 'services/api';
 
 export const getContactsThunk = createAsyncThunk(
   'contacts/fetchAll',
@@ -39,12 +40,17 @@ export const deleteContactThunk = createAsyncThunk(
       return thunkAPI.rejectWithValue(e.message);
     }
   },
-  {
-    condition: (_, { getState }) => {
-      const loading = getState().contactList.loading;
-      if (loading) {
-        return false;
-      }
-    },
+
+);
+
+export const editContactThunk = createAsyncThunk(
+  'contacts/editContact',
+  async ({ id, name, number }, thunkAPI) => {
+    try {
+      const response = await fetchEditContact({ id, name, number });
+      return response;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
 );

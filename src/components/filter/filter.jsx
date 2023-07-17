@@ -11,6 +11,7 @@ export const Filter = () => {
       <Input
         type="text"
         name="filter"
+        placeholder="Find contacts"
         onChange={e => dispatch(addFilter(e.target.value))}
       />
     </Form>

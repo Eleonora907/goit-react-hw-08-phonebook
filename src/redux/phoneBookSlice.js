@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addContactThunk,
   deleteContactThunk,
+  editContactThunk,
   getContactsThunk,
 } from './operations';
 
@@ -9,6 +10,12 @@ const initialState = {
   items: [],
   isLoading: false,
   error: null,
+  isEditing: false,
+  currentContact: {
+    name: null,
+    number: null,
+    id: null,
+  },
 };
 
 const rejected = (state, { payload }) => {
@@ -23,6 +30,15 @@ const pending = (state, action) => {
 const phoneBookSlice = createSlice({
   name: 'contacts',
   initialState,
+
+  reducers: {
+    toggleEditing: state => {
+      state.isEditing = !state.isEditing;
+    },
+    setCurrentContact: (state, action) => {
+      state.currentContact = action.payload;
+    },
+  },
 
   extraReducers: builder => {
     builder
@@ -41,10 +57,16 @@ const phoneBookSlice = createSlice({
         state.items.splice(index, 1);
         state.isLoading = false;
       })
+      .addCase(editContactThunk.fulfilled, (state, action) => {
+        state.items = state.items.map(contact => {
+          return contact.id === action.payload.id ? action.payload : contact;
+        });
+      })
       .addMatcher(action => action.type.endsWith('/pending'), pending)
       .addMatcher(action => action.type.endsWith('/rejected'), rejected);
   },
 });
 
 export const phoneBookReducer = phoneBookSlice.reducer;
+export const { toggleEditing, setCurrentContact } = phoneBookSlice.actions;
 
