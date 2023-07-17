@@ -25,7 +25,6 @@ const LoginPage = () => {
     e.preventDefault();
 
     dispatch(loginThunk(credentials))
-      .unwrap()
       .then(() => toast.success(`Welcome back!`))
       .catch(() =>
         toast.error(

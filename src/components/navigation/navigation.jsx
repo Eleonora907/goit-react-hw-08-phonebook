@@ -3,12 +3,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/selectors';
 import { Header, LoginWrapper, NavItem } from './navigation.styled';
-import { useNavigate } from 'react-router';
 import { DeleteButton } from 'components/contactItem/contactItem.styled';
+import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const navigate = useNavigate();
+  
   return (
     <Header>
       <nav>
@@ -19,12 +19,12 @@ export const Navigation = () => {
       <LoginWrapper>
         {!isLoggedIn && (
           <div>
-            <DeleteButton onClick={() => navigate('/login')}>
-              Login
+            <DeleteButton>
+            <Link to="/login">Login</Link>
             </DeleteButton>
-            <DeleteButton onClick={() => navigate('/register')}>
-              Register
-            </DeleteButton>
+            <DeleteButton>
+            <Link to="/register">Register</Link>
+            </DeleteButton> 
           </div>
         )}
       </LoginWrapper>

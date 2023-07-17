@@ -22,7 +22,7 @@ export const registerThunk = createAsyncThunk(
 );
 
 export const loginThunk = createAsyncThunk(
-  'auth/login',
+  'user/login',
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await login(credentials);
@@ -35,7 +35,7 @@ export const loginThunk = createAsyncThunk(
 );
 
 export const logoutThunk = createAsyncThunk(
-  'auth/logout',
+  'user/logout',
   async (_, { rejectWithValue }) => {
     try {
       await logout();
@@ -47,7 +47,7 @@ export const logoutThunk = createAsyncThunk(
 );
 
 export const refreshThunk = createAsyncThunk(
-  'auth/refresh',
+  'user/refresh',
   async (_, { rejectWithValue, getState }) => {
     const persistedToken = getState().auth.token;
     if (!persistedToken) {
